@@ -4,8 +4,6 @@ Antidote crawls a web page and 'cures' the HTML by loading assets (CSS, JS, imag
 
 The effect is that the final HTML will have zero external HTTP calls on page load. 
 
-```
-
 ## Usage
 
 #### Getting cured HTML
