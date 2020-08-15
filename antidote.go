@@ -70,7 +70,7 @@ func (a *Antidote) Cure() (string, error) {
 	return a.curedHtml, nil
 }
 
-// cureAssets will run all cure methods in parallel and wait for them to be complete.
+// cureAssets will run all cure methods concurrently and wait for them to be complete.
 func (a *Antidote) cureAssets() {
 	var wg sync.WaitGroup
 	wg.Add(3)
@@ -93,7 +93,7 @@ func (a *Antidote) cureAssets() {
 	wg.Wait()
 }
 
-// cureCSS will fetch the CSS source of all <link> elements in parallel and wait for them to be complete.
+// cureCSS will fetch the CSS source of all <link> elements concurrently and wait for them to be complete.
 // Then it will append a <style> node in the <head> with the raw CSS as the content, and remove the
 // pre-existing <link> referencing the external so the browser doesn't throw any errors.
 func (a *Antidote) cureCSS() {
@@ -136,7 +136,7 @@ func (a *Antidote) cureCSS() {
 	wg.Wait()
 }
 
-// cureJS will fetch the JS source of all <script> elements in parallel and wait for them to be complete.
+// cureJS will fetch the JS source of all <script> elements concurrently and wait for them to be complete.
 // Then it will append a <script> node in the <head> with the raw JS as the content, and remove the
 // pre-existing <script> referencing the external JS so the browser doesn't throw any errors.
 func (a *Antidote) cureJS() {
@@ -194,7 +194,7 @@ var isImageExtension map[string]bool = map[string]bool{
 	"tiff": true,
 }
 
-// cureImages will fetch the image of all <img> elements in parallel and wait for them to be complete.
+// cureImages will fetch the image of all <img> elements concurrently and wait for them to be complete.
 // Then it will convert the image into a base64 data URL and replace the src value with the data URL.
 func (a *Antidote) cureImages() {
 	images := a.website.Find("img")
